@@ -5,10 +5,9 @@
 (function(root) {
   // Factory to create the exported function
   var factory = function() {
-    // Utility Functions
-    // -----------------
-
-    var merge = function(destination, source) {
+    // Merge one object's properties into another, throwing an error if
+    // there is any conflict.
+    var cleanMerge = function(destination, source) {
       Object.keys(source).forEach(function(key) {
         if (destination.hasOwnProperty(key)) {
           throw new Error(
@@ -25,14 +24,32 @@
     // -----------------
 
     var objectcurry = function(
-      theFunction, curriedArguments, requiredArgumentsArray
+      // The function to curry, which takes an object whose properties
+      // are treated as named arguments.
+      theFunction,
+      // An object with properties to curry.
+      curriedArguments,
+      // An optional array of property keys to require.
+      requiredArgumentsArray
     ) {
-      // TODO: Throw on invoke if shadowing curried argkey
+      // If there are neither properties to curry nor requirements to
+      // impose, just return the function as it is.
+      if (
+        (
+          !curriedArguments ||
+          Object.keys(curriedArguments) === 0
+        ) &&
+        !requiredArgumentsArray
+      ) {
+        return theFunction;
+      }
+
+      // The curried function to be returned.
       var returnedFunction = function() {
         var objectArgument = arguments[0] || {};
 
-        // Required Arguments Check
-
+        // Check that all required argument properties, if any, have
+        // been provided, either curried or on this invocation.
         var requiredArguments = returnedFunction.requiredArguments;
         if (requiredArguments) {
           requiredArguments.forEach(function(requiredKey) {
@@ -44,35 +61,28 @@
           });
         }
 
-        // Curried Argument Conflict Check
-
-        Object.keys(returnedFunction.curriedArguments)
-          .forEach(function(key) {
-            if (objectArgument.hasOwnProperty(key)) {
-              throw new Error(
-                'argument property "' + key + '" was curried'
-              );
-            }
-          });
-
-        // Invocation
-
-        merge(objectArgument, returnedFunction.curriedArguments);
-        theFunction.apply(root, arguments);
+        // Invoke the provided function with a merger of the curried
+        // argument properties and the arguments object provided on this
+        // invocation. Throw an error if the arguments object has any
+        // properties that have already been curried.
+        cleanMerge(objectArgument, returnedFunction.curriedArguments);
+        return theFunction.apply(root, arguments);
       };
 
-      // Curried Arguments Object
+      // TODO: Don't create a new function if it is already curried.
 
+      // Store an object containing all curried argument propties on the
+      // curried function that is returned.
       if (theFunction.curriedArguments) {
-        returnedFunction.curriedArguments = merge(
+        returnedFunction.curriedArguments = cleanMerge(
           curriedArguments, theFunction.curriedArguments
         );
       } else {
         returnedFunction.curriedArguments = curriedArguments;
       }
 
-      // Required Arguments Array
-
+      // Store an array containing the keys for all required argument
+      // object properties on the curried function that is returned.
       if (requiredArgumentsArray || theFunction.requiredArguments) {
         if (requiredArgumentsArray && theFunction.requiredArguments) {
           throw new Error(
@@ -86,6 +96,7 @@
               });
         }
       }
+
       return returnedFunction;
     };
 

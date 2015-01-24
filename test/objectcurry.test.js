@@ -7,9 +7,26 @@ var noop = function() {
   return;
 };
 
+var sum = function(arg) {
+  return Object.keys(arg).reduce(function(sum, key) {
+    return sum + arg[key];
+  }, 0);
+};
+
 describe('objectcurry', function() {
   it('returns functions', function() {
-    expect(curry(noop, { characters: 'a' })).to.be.a('function');
+    expect(curry(noop, { characters: 'a' }))
+      .to.be.a('function');
+  });
+
+  it('returns functions as-is when possible', function() {
+    expect(curry(noop))
+      .to.equal(noop);
+  });
+
+  it('saves requirements without arguments to curry', function() {
+    expect(curry(noop, {}, [ 'a' ]).requiredArguments)
+      .to.eql([ 'a' ]);
   });
 
   it('merges curried properties with arguments', function() {
@@ -24,7 +41,12 @@ describe('objectcurry', function() {
     )({ second: 'from call' });
   });
 
-  it('stores uncurried argument keys on .requiredArguments', function() {
+  it('permits a valid invocation', function() {
+    expect(curry(sum, { a: 10 }, [ 'a', 'b' ])({ b: 10 }))
+      .to.equal(20);
+  });
+
+  it('stores require argument property keys', function() {
     expect(curry(noop, { a: 1 }, [ 'a', 'b' ]).requiredArguments)
       .to.eql([ 'b' ]);
   });
@@ -36,13 +58,14 @@ describe('objectcurry', function() {
 
   it('prevents invocation without required properties', function() {
     expect(curry(noop, {}, [ 'required' ]))
-      .to.throw(/missing/);
+      .to.throw(/missing required argument property/);
   });
 
   it('prvents shadowing of curried properties', function() {
     expect(function() {
-      curry(noop, { first: 'curried' })({ first: 'different' });
-    }).to.throw(/was curried/);
+      curry(noop, { a: 1 })({ a: 2 });
+    })
+      .to.throw(/already curried/);
   });
 
   it('successively reduces function.requiredArguments', function() {
