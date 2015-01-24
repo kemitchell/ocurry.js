@@ -1,6 +1,6 @@
 // ocurry.js 0.0.1
 // ===============
-// https://github.com/kemitchell/ocurry.js
+// License &c. available at https://github.com/kemitchell/ocurry.js
 
 (function(root) {
   // Factory to create the exported function

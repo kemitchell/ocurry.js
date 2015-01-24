@@ -54,3 +54,8 @@ Comments to the source are [Docco](http://jashkenas.github.io/docco/)-compatible
 npm --global install docco
 docco --output docs ocurry.js
 ```
+
+License
+-------
+
+See [LICENSE.md](./LICENSE.md).
