@@ -108,7 +108,6 @@
         } else {
           returnedFunction.required = [];
         }
-        // TODO: Allocate an array for requiredArgs only as needed
 
         return returnedFunction;
       }
