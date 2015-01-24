@@ -5,7 +5,7 @@ ocurry.js
 [![Bower version](https://img.shields.io/bower/v/ocurry.svg)](http://bower.io/search/?q=ocurry)
 [![build status](https://img.shields.io/travis/kemitchell/ocurry.js.svg)](http://travis-ci.org/kemitchell/ocurry.js)
 
-Curry functions that take an object of named arguments
+Curry fake named-argument functions
 
 Comments to the source are [Docco](http://jashkenas.github.io/docco/)-compatible. To generate an annotated source listing for browsing:
 
