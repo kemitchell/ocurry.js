@@ -20,6 +20,10 @@
       return source;
     };
 
+    // Given a list of required argument-properties and an object
+    // containing curried object-properties, return an array of
+    // argument-property keys of required properties remaining to be
+    // curried or passed.
     var remainingRequired = function(required, curried) {
       return required.filter(function(key) {
         return !curried.hasOwnProperty(key);
@@ -29,6 +33,7 @@
     // Exported Function
     // -----------------
 
+    // Curry named-argument functions.
     var ocurry = function(
       // The function to curry, which takes an object whose properties
       // are treated as named arguments.
