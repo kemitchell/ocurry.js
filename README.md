@@ -1,9 +1,9 @@
-objectcurry.js
-==============
+ocurry.js
+=========
 
-[![npm version](https://img.shields.io/npm/v/objectcurry.svg)](https://www.npmjs.com/package/objectcurry)
-[![Bower version](https://img.shields.io/bower/v/objectcurry.svg)](http://bower.io/search/?q=objectcurry)
-[![build status](https://img.shields.io/travis/kemitchell/objectcurry.js.svg)](http://travis-ci.org/kemitchell/objectcurry.js)
+[![npm version](https://img.shields.io/npm/v/ocurry.svg)](https://www.npmjs.com/package/ocurry)
+[![Bower version](https://img.shields.io/bower/v/ocurry.svg)](http://bower.io/search/?q=ocurry)
+[![build status](https://img.shields.io/travis/kemitchell/ocurry.js.svg)](http://travis-ci.org/kemitchell/ocurry.js)
 
 Curry functions that take an object of named arguments
 
@@ -11,5 +11,5 @@ Comments to the source are [Docco](http://jashkenas.github.io/docco/)-compatible
 
 ```bash
 npm --global install docco
-docco --output docs objectcurry.js
+docco --output docs ocurry.js
 ```

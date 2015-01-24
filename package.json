@@ -5,7 +5,7 @@
     "url": "http://kemitchell.com/"
   },
   "bugs": {
-    "homepage": "https://github.com/kemitchell/objectcurry.js/issues"
+    "homepage": "https://github.com/kemitchell/ocurry.js/issues"
   },
   "description": "curry functions that take an object of named arguments",
   "devDependencies": {
@@ -18,18 +18,18 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "homepage": "https://github.com/kemitchell/objectcurry.js",
+  "homepage": "https://github.com/kemitchell/ocurry.js",
   "keywords": [
     "functions",
     "utilities",
     "currying"
   ],
   "license": "Apache-2.0",
-  "main": "objectcurry.js",
-  "name": "objectcurry",
+  "main": "ocurry.js",
+  "name": "ocurry",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kemitchell/objectcurry.js.git"
+    "url": "https://github.com/kemitchell/ocurry.js.git"
   },
   "scripts": {
     "coverage": "istanbul cover _mocha && istanbul check-coverage coverage/coverage.json",

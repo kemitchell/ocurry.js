@@ -5,7 +5,7 @@
     "url": "http://kemitchell.com/"
   },
   "description": "curry functions that take an object of named arguments",
-  "homepage": "https://github.com/kemitchell/objectcurry.js",
+  "homepage": "https://github.com/kemitchell/ocurry.js",
   "ignore": [
     "**/.*",
     "coverage/",
@@ -20,11 +20,11 @@
     "currying"
   ],
   "license": "Apache-2.0",
-  "main": "objectcurry.js",
-  "name": "objectcurry",
+  "main": "ocurry.js",
+  "name": "ocurry",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kemitchell/objectcurry.js.git"
+    "url": "https://github.com/kemitchell/ocurry.js.git"
   },
   "version": "0.0.1"
 }

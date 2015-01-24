@@ -19,13 +19,8 @@ describe('objectcurry', function() {
       .to.be.a('function');
   });
 
-  it('returns functions as-is when possible', function() {
-    expect(curry(noop))
-      .to.equal(noop);
-  });
-
-  it('saves requirements without arguments to curry', function() {
-    expect(curry(noop, {}, [ 'a' ]).requiredArguments)
+  it('can enforce requirements without curring properties', function() {
+    expect(curry(noop, false, [ 'a' ]).required)
       .to.eql([ 'a' ]);
   });
 
@@ -41,58 +36,86 @@ describe('objectcurry', function() {
     )({ second: 'from call' });
   });
 
-  it('permits a valid invocation', function() {
+  it('can enforce requirements on curried functions', function() {
+    expect(
+      curry(
+        curry(noop, { a: 1 }),
+        {}, [ 'a', 'b' ]
+      )
+      .required
+    )
+      .to.eql([ 'b' ]);
+  });
+
+  describe('optimization', function() {
+    it('returns functions as-is when possible', function() {
+      expect(curry(noop))
+        .to.equal(noop);
+    });
+
+    it('reuses curried function wrappers', function() {
+      var firstCurried = curry(noop, { a: 1 });
+      expect(curry(firstCurried, { b: 2 }))
+        .to.equal(firstCurried);
+    });
+  });
+
+  it('permits entirely curried invocation', function() {
     expect(curry(sum, { a: 10 }, [ 'a', 'b' ])({ b: 10 }))
       .to.equal(20);
   });
 
-  it('stores require argument property keys', function() {
-    expect(curry(noop, { a: 1 }, [ 'a', 'b' ]).requiredArguments)
-      .to.eql([ 'b' ]);
+  describe('metadata properties', function() {
+    it('stores required argument property keys on .required', function() {
+      expect(curry(noop, { a: 1 }, [ 'a', 'b' ]).required)
+        .to.eql([ 'b' ]);
+    });
+
+    it('stores curried argument properties on .curried', function() {
+      expect(curry(noop, { first: 'curried' }).curried)
+        .to.eql({ first: 'curried' });
+    });
+
+    it('successively reduces required arguments', function() {
+      expect(
+        curry(
+          curry(noop, { a: 1 }, [ 'a', 'b' ]),
+          { b: 2 }
+        ).required
+      )
+        .to.eql([]);
+    });
   });
 
-  it('stores curried properties on .curriedArguments', function() {
-    expect(curry(noop, { first: 'curried' }).curriedArguments)
-      .to.eql({ first: 'curried' });
-  });
+  describe('errors', function() {
+    it('prevent invocation without required properties', function() {
+      expect(curry(noop, {}, [ 'required' ]))
+        .to.throw(/missing argument property/);
+    });
 
-  it('prevents invocation without required properties', function() {
-    expect(curry(noop, {}, [ 'required' ]))
-      .to.throw(/missing required argument property/);
-  });
+    it('prvent shadowing of curried properties', function() {
+      expect(function() {
+        curry(noop, { a: 1 })({ a: 2 });
+      })
+        .to.throw(/already curried/);
+    });
 
-  it('prvents shadowing of curried properties', function() {
-    expect(function() {
-      curry(noop, { a: 1 })({ a: 2 });
-    })
-      .to.throw(/already curried/);
-  });
+    it('prevent currying the same property twice', function() {
+      expect(function() {
+        curry(
+          curry(noop, { a: 1 }),
+          { a: 1 }
+        );
+      }).to.throw(/already curried/);
+    });
 
-  it('successively reduces function.requiredArguments', function() {
-    expect(
-      curry(
-        curry(noop, { a: 1 }, [ 'a', 'b' ]),
-        { b: 2 }
-      ).requiredArguments
-    )
-      .to.eql([]);
-  });
-
-  it('prevents currying the same property twice', function() {
-    expect(function() {
-      curry(
-        curry(noop, { a: 1 }),
-        { a: 1 }
-      );
-    }).to.throw(/already curried/);
-  });
-
-  it('prevents setting different required arguments', function() {
-    expect(function() {
-      curry(
-        curry(noop, { a: 1 }, [ 'a' ]),
-        { c: 3 }, [ 'c' ]
-      );
-    }).to.throw(/already has a required argument properties array/);
+    it('prevents setting different required arguments', function() {
+      expect(function() {
+        curry(
+          curry(noop, { b: 1 }, [ 'a' ]),
+          null, [ 'c' ]
+        );
+      }).to.throw(/already has a required properties array/);
+    });
   });
 });
