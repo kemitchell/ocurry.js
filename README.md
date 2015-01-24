@@ -7,6 +7,9 @@ ocurry.js
 
 Curry named-argument functions
 
+Usage
+-----
+
 ```javascript
 // Function that takes an object of argument-properties
 var request = function(args) {
@@ -41,6 +44,9 @@ getFromLocalhost();
 getFromLocalhost({ path: '/some/resource' });
 // -> returns 'HTTP GET localhost/some/resource'
 ```
+
+Documentation
+-------------
 
 Comments to the source are [Docco](http://jashkenas.github.io/docco/)-compatible. To generate an annotated source listing for browsing:
 
