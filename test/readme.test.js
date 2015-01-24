@@ -27,11 +27,23 @@ describe('README Example', function() {
 
     var fromLocalhost = ocurry(http, { host: 'localhost' });
 
+    expect(fromLocalhost.curried)
+      .to.eql({ protocol: 'HTTP', host: 'localhost' });
+
+    expect(fromLocalhost.required)
+      .to.eql([ 'method', 'path' ]);
+
     expect(function() {
       fromLocalhost({ path: '/some/resource' });
     }).to.throw(Error);
 
     var getFromLocalhost = ocurry(fromLocalhost, { method: 'GET' });
+
+    expect(getFromLocalhost.curried)
+      .to.eql({ protocol: 'HTTP', host: 'localhost', method: 'GET' });
+
+    expect(getFromLocalhost.required)
+      .to.eql([ 'path' ]);
 
     expect(function() {
       getFromLocalhost();

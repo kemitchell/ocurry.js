@@ -36,7 +36,19 @@ var fromLocalhost = ocurry(http, { host: 'localhost' });
 fromLocalhost({ path: '/some/resource' });
 // -> throws an error
 
+fromLocalhost.curried
+// -> { protocol: 'HTTP', host: 'localhost' }
+
+fromLocalhost.required
+// -> [ 'method', 'path' ]
+
 var getFromLocalhost = ocurry(fromLocalhost, { method: 'GET' });
+
+getFromLocalhost.curried
+// -> { protocol: 'HTTP', host: 'localhost', method: 'GET' }
+
+getFromLocalhost.required;
+// -> [ 'path' ]
 
 getFromLocalhost();
 // -> throws an error
