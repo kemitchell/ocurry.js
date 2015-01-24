@@ -7,6 +7,41 @@ ocurry.js
 
 Curry fake named-argument functions
 
+```javascript
+// Function that takes an object of argument-properties
+var request = function(args) {
+  return args.protocol + ' ' +
+    args.method + ' ' +
+    args.host +
+    args.path;
+};
+
+var http = ocurry(
+  // Function to curry
+  request,
+  // Named arguments to curry
+  { protocol: 'HTTP' },
+   // (Optional) required named arguments
+  [ 'protocol', 'method', 'host', 'path' ]
+);
+
+http({ path: '/some/resource' });
+// -> throws an error
+
+var fromLocalhost = ocurry(http, { host: 'localhost' });
+
+fromLocalhost({ path: '/some/resource' });
+// -> throws an error
+
+var getFromLocalhost = ocurry(fromLocalhost, { method: 'GET' });
+
+getFromLocalhost();
+// -> throws an error
+
+getFromLocalhost({ path: '/some/resource' });
+// -> returns 'HTTP GET localhost/some/resource'
+```
+
 Comments to the source are [Docco](http://jashkenas.github.io/docco/)-compatible. To generate an annotated source listing for browsing:
 
 ```bash
