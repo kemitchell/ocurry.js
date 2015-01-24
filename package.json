@@ -7,7 +7,7 @@
   "bugs": {
     "homepage": "https://github.com/kemitchell/ocurry.js/issues"
   },
-  "description": "curry fake named-argument functions",
+  "description": "curry named-argument functions",
   "devDependencies": {
     "chai": "^1.10.0",
     "istanbul": "^0.3.5",

@@ -4,7 +4,7 @@
     "email": "kyle@kemitchell.com",
     "url": "http://kemitchell.com/"
   },
-  "description": "curry fake named-argument functions",
+  "description": "curry named-argument functions",
   "homepage": "https://github.com/kemitchell/ocurry.js",
   "ignore": [
     "**/.*",

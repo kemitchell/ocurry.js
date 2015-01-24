@@ -5,7 +5,7 @@ ocurry.js
 [![Bower version](https://img.shields.io/bower/v/ocurry.svg)](http://bower.io/search/?q=ocurry)
 [![build status](https://img.shields.io/travis/kemitchell/ocurry.js.svg)](http://travis-ci.org/kemitchell/ocurry.js)
 
-Curry fake named-argument functions
+Curry named-argument functions
 
 ```javascript
 // Function that takes an object of argument-properties
