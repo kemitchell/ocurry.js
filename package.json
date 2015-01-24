@@ -1,0 +1,42 @@
+{
+  "author": {
+    "name": "Kyle E. Mitchell",
+    "email": "kyle@kemitchell.com",
+    "url": "http://kemitchell.com/"
+  },
+  "bugs": {
+    "homepage": "https://github.com/kemitchell/objectcurry.js/issues"
+  },
+  "description": "curry functions that take an object of named arguments",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "istanbul": "^0.3.5",
+    "jshint": "^2.5.11",
+    "mocha": "^2.1.0",
+    "semver": "^4.2.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "homepage": "https://github.com/kemitchell/objectcurry.js",
+  "keywords": [
+    "functions",
+    "utilities",
+    "currying"
+  ],
+  "license": "Apache-2.0",
+  "main": "objectcurry.js",
+  "name": "objectcurry",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kemitchell/objectcurry.js.git"
+  },
+  "scripts": {
+    "coverage": "istanbul cover _mocha && istanbul check-coverage coverage/coverage.json",
+    "lint": "jshint .",
+    "pre-commit": "npm run lint && npm run coverage",
+    "test": "mocha",
+    "travis-ci": "npm run pre-commit"
+  },
+  "version": "0.0.1"
+}

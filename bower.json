@@ -1,0 +1,30 @@
+{
+  "author": {
+    "name": "Kyle E. Mitchell",
+    "email": "kyle@kemitchell.com",
+    "url": "http://kemitchell.com/"
+  },
+  "description": "curry functions that take an object of named arguments",
+  "homepage": "https://github.com/kemitchell/objectcurry.js",
+  "ignore": [
+    "**/.*",
+    "coverage/",
+    "docs/",
+    "node_modules/",
+    "package.json",
+    "test/"
+  ],
+  "keywords": [
+    "functions",
+    "utilities",
+    "currying"
+  ],
+  "license": "Apache-2.0",
+  "main": "objectcurry.js",
+  "name": "objectcurry",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kemitchell/objectcurry.js.git"
+  },
+  "version": "0.0.1"
+}
