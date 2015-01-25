@@ -74,7 +74,6 @@
         return theFunction;
 
       // ### Curried Function Wrapping
-
       } else {
         // The curried function to be returned.
         var returnedFunction = function() {

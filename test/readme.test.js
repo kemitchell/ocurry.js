@@ -16,40 +16,40 @@ describe('README Example', function() {
       // Function to curry
       request,
       // Named arguments to curry
-      { protocol: 'HTTP' },
+      {protocol: 'HTTP'},
        // (Optional) required named arguments
-      [ 'protocol', 'method', 'host', 'path' ]
+      ['protocol', 'method', 'host', 'path']
     );
 
     expect(function() {
-      http({ path: '/some/resource' });
+      http({path: '/some/resource'});
     }).to.throw(Error);
 
-    var fromLocalhost = ocurry(http, { host: 'localhost' });
+    var fromLocalhost = ocurry(http, {host: 'localhost'});
 
     expect(fromLocalhost.curried)
-      .to.eql({ protocol: 'HTTP', host: 'localhost' });
+      .to.eql({protocol: 'HTTP', host: 'localhost'});
 
     expect(fromLocalhost.required)
-      .to.eql([ 'method', 'path' ]);
+      .to.eql(['method', 'path']);
 
     expect(function() {
-      fromLocalhost({ path: '/some/resource' });
+      fromLocalhost({path: '/some/resource'});
     }).to.throw(Error);
 
-    var getFromLocalhost = ocurry(fromLocalhost, { method: 'GET' });
+    var getFromLocalhost = ocurry(fromLocalhost, {method: 'GET'});
 
     expect(getFromLocalhost.curried)
-      .to.eql({ protocol: 'HTTP', host: 'localhost', method: 'GET' });
+      .to.eql({protocol: 'HTTP', host: 'localhost', method: 'GET'});
 
     expect(getFromLocalhost.required)
-      .to.eql([ 'path' ]);
+      .to.eql(['path']);
 
     expect(function() {
       getFromLocalhost();
     }).to.throw(Error);
 
-    expect(getFromLocalhost({ path: '/some/resource' }))
+    expect(getFromLocalhost({path: '/some/resource'}))
       .to.equal('HTTP GET localhost/some/resource');
   });
 });
