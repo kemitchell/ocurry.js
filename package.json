@@ -4,9 +4,7 @@
     "email": "kyle@kemitchell.com",
     "url": "http://kemitchell.com/"
   },
-  "bugs": {
-    "homepage": "https://github.com/kemitchell/ocurry.js/issues"
-  },
+  "bugs": "https://github.com/kemitchell/ocurry.js/issues",
   "description": "curry named-argument functions",
   "devDependencies": {
     "chai": "^1.10.0",
